@@ -8,6 +8,7 @@ import { authRouter } from "./api/routes/auth.js";
 import cors from 'cors';
 
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import {preSeed} from "./db/db_api.js";
 dotenv.config();
 
@@ -19,6 +20,9 @@ const ARTICLE_API_ROUTE = '/api/articles';
 const USER_API_ROUTE = '/api/users';
 const AUTH_API_ROUTE = '/api/auth';
 
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5000',
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
