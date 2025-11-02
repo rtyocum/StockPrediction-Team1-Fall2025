@@ -1,4 +1,4 @@
-import { getNewsArticles, type ArticleWithTickers } from "@/api/article_api";
+import { getNewsArticles, type NewsArticleTickers } from "@/api/article_api";
 import type { User } from "../../../src/db/schema";
 import type { NewsArticle } from "../../../src/db/schema.js";
 import { Link as ReactLink } from "react-router-dom";
@@ -21,7 +21,7 @@ type NewsProps = {
 
 export default function News({ user }: NewsProps) {
   // const [isLoading, setIsLoading] = useState(true)
-  const [articles, setArticles] = useState<ArticleWithTickers[]>([]);
+  const [articles, setArticles] = useState<NewsArticleTickers[]>([]);
   useEffect(() => {
     loadArticles();
   }, []);

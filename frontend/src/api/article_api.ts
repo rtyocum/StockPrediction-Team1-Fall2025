@@ -6,19 +6,18 @@ const ARTICLE_API_ROUTE = '/api/articles';
 const USER_API_ROUTE = '/api/users';
 const AUTH_API_ROUTE = '/api/auth';
 
-// http://localhost:5000/api/articles/
-export interface TickerSentiment {
+export interface ArticleTickers {
   tickerId: number;
   symbol: string;
   tickerSentimentScore: string | null;
   tickerSentimentLabel: string | null;
   relevanceScore: string | null;
 }
-export interface ArticleWithTickers extends NewsArticle {
-  tickers: TickerSentiment[];
+export interface NewsArticleTickers extends NewsArticle {
+  tickers: ArticleTickers[];
 }
 
-export async function getNewsArticles(): Promise<ArticleWithTickers[]> {
+export async function getNewsArticles(): Promise<NewsArticleTickers[]> {
     try {
         const response = await fetch(`${BACKEND_URL}${ARTICLE_API_ROUTE}/`, {
             credentials: "include",
