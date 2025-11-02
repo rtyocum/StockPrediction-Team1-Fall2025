@@ -11,5 +11,5 @@ output "client_secret" {
 
 output "issuer" {
   description = "OIDC issuer URL for discovery"
-  value       = "https://${aws_cognito_user_pool_domain.domain.domain}.auth.us-east-1.amazoncognito.com"
+  value       = "https://cognito-idp.${var.aws_region}.amazonaws.com/${aws_cognito_user_pool.pool.id}"
 }
