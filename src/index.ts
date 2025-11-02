@@ -7,6 +7,7 @@ import userRouter from "./api/routes/user.js";
 import { authRouter } from "./api/routes/auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import {preSeed} from "./db/db_api.js";
 dotenv.config();
 
 const app: Express = express();
@@ -27,6 +28,12 @@ app.use(TICKER_API_ROUTE, tickerRouter);
 app.use(ARTICLE_API_ROUTE, articleRouter);
 app.use(USER_API_ROUTE, userRouter);
 app.use(AUTH_API_ROUTE, authRouter);
+
+app.get("/seed", async (req, res) => {
+    await preSeed();
+    res.json({ message: "Pre-Seeded Data" });
+});
+
 
 try {
     const httpServer = http.createServer(app);
