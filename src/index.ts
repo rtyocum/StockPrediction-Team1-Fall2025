@@ -4,7 +4,6 @@ import http from 'http';
 import tickerRouter from "./api/routes/ticker.js";
 import articleRouter from "./api/routes/article.js";
 import userRouter from "./api/routes/user.js";
-import publicDataRouter from "./api/public_routes/public_data_router.js";
 import { authRouter } from "./api/routes/auth.js";
 import cors from 'cors';
 
@@ -23,7 +22,7 @@ const AUTH_API_ROUTE = '/api/auth';
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 
@@ -46,7 +45,3 @@ try {
 } catch (error) {
     console.error('Failed to start HTTP server:', error);
 }
-
-app.listen(process.env.PORT, () => {
-  console.log('Server listening on port', process.env.PORT);
-});

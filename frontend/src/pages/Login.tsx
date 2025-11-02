@@ -2,12 +2,12 @@ import { Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 
 export default function Login() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    // hmmmm
+  // hmmmm
   function handleLogin() {
     window.location.href = `${backendUrl}/api/auth/login`;
   }
 
-  return (    
+  return (
     <Flex
       direction="column"
       align="center"

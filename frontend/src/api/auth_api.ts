@@ -1,12 +1,9 @@
-import type { User } from "@/types/user";
+import type { User } from "../../../src/db/schema";
 
 const BACKEND_URL = `${import.meta.env.VITE_BACKEND_URL}`;
 
 export async function checkSession(): Promise<User | null> {
-    console.log("entered")
     try {
-            console.log("entered again")
-
         const res = await fetch(`${BACKEND_URL}/api/auth/session`, {
             credentials: "include",
         });
@@ -14,7 +11,6 @@ export async function checkSession(): Promise<User | null> {
         if (!res.ok) {
             return null;
         }
-        console.log(res)
 
         const data: User = await res.json();
         console.log('session data:', data);
@@ -27,5 +23,8 @@ export async function checkSession(): Promise<User | null> {
 }
 
 export async function logout(): Promise<void> {
-    await fetch(`${BACKEND_URL}/api/auth/logout`);
+    await fetch(`${BACKEND_URL}/api/auth/logout`, {
+        credentials: "include",
+        method: "POST"
+    });
 }
