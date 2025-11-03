@@ -1,6 +1,6 @@
 import { Spinner, Text, VStack } from "@chakra-ui/react";
 import type { User } from "../../../src/db/schema";
-import React from "react";
+// import React from "react";
 
 type WatchlistProps = {
   user: User | null;
@@ -10,9 +10,9 @@ type WatchlistProps = {
 
 export default function Watchlist(user: WatchlistProps) {
   console.log("user watchlist:", user);
-//   below is placeholder, can delete
+  //   below is placeholder, can delete
   return (<VStack colorPalette="teal" mt={16}>
-          <Spinner color="colorPalette.600" />
-          <Text color="colorPalette.600">Loading...</Text>
-        </VStack>)
+    <Spinner color="colorPalette.600" />
+    <Text color="colorPalette.600">Loading...</Text>
+  </VStack>)
 }

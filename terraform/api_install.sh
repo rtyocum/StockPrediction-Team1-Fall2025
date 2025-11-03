@@ -6,6 +6,7 @@ export DATABASE_URL="mysql://${db_username}:${db_password}@${db_endpoint}/${db_n
 export PORT=5000
 export AUTH_ISSUER_URL=${auth_issuer}
 export NODE_ENV=production
+export API_URL=${api_url}
 export APP_URL=${app_url}
 export AUTH_CLIENT_ID=${auth_client_id}
 export AUTH_CLIENT_SECRET=${auth_client_secret}
@@ -16,7 +17,7 @@ yum install -y git nginx curl-minimal openssl
 curl -fsSL https://rpm.nodesource.com/setup_22.x | sudo bash -
 sudo yum install -y nodejs
 mkdir -p /opt/api
-git clone -b terraform ${repo_url} /opt/api
+git clone -b frontend ${repo_url} /opt/api
 cd /opt/api
 openssl req -nodes -new -x509 -keyout server.key -out server.cert -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=${public_dns}" -days 3650
 npm install

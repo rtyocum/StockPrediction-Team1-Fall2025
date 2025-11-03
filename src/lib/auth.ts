@@ -4,16 +4,15 @@ import * as client from "openid-client";
  **/
 export const clientConfig = {
     issuer: process.env.AUTH_ISSUER_URL!,
-    audience: process.env.APP_URL!,
+    audience: process.env.API_URL!,
     client_id: process.env.AUTH_CLIENT_ID!,
     client_secret: process.env.AUTH_CLIENT_SECRET!,
     scope: "email openid profile",
-    redirect_uri: `${process.env.APP_URL!}/api/auth/callback`,
-    post_logout_redirect_uri: `${process.env.FRONTEND_URL!}`,
+    redirect_uri: `${process.env.API_URL!}/api/auth/callback`,
+    post_logout_redirect_uri: `${process.env.APP_URL!}`,
     response_type: "code",
     grant_type: "authorization_code",
-    post_login_route: `${process.env.FRONTEND_URL!}`,
-    login_forbidden_route: `${process.env.APP_URL!}/forbidden`,
+    post_login_route: `${process.env.APP_URL!}`,
     code_challenge_method: "S256",
 };
 

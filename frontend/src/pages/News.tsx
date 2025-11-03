@@ -1,6 +1,6 @@
 import { getNewsArticles, type NewsArticleTickers } from "@/api/article_api";
-import type { User } from "../../../src/db/schema";
-import type { NewsArticle } from "../../../src/db/schema.js";
+// import type { User } from "../../../src/db/schema";
+// import type { NewsArticle } from "../../../src/db/schema.js";
 import { Link as ReactLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -15,11 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { LuExternalLink } from "react-icons/lu";
 
-type NewsProps = {
-  user: User | null;
-};
+// type NewsProps = {
+//   user: User | null;
+// };
 
-export default function News({ user }: NewsProps) {
+export default function News(/*{ user }: NewsProps*/) {
   // const [isLoading, setIsLoading] = useState(true)
   const [articles, setArticles] = useState<NewsArticleTickers[]>([]);
   useEffect(() => {

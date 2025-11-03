@@ -50,10 +50,10 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes user={user} />}>
           {/* routes for logged-in users */}
-          <Route path="/news" element={<News user={user} />} />
+          <Route path="/news" element={<News />} />
           <Route path="/watchlist" element={<Watchlist user={user} />} />
-          <Route path="/news/:id" element={<NewsArticle user={user} />} />
-          <Route path="/analytics" element={<Analytics user={user} />} />
+          <Route path="/news/:id" element={<NewsArticle />} />
+          <Route path="/analytics" element={<Analytics />} />
         </Route>
         {/* route for nonlogged-in users */}
         <Route

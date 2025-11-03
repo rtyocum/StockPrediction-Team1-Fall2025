@@ -38,6 +38,13 @@ resource "aws_eip" "ec2_eip" {
   domain = "vpc"
 }
 
+module "s3" {
+  source      = "./modules/s3"
+  api_url     = "https://${aws_eip.ec2_eip.public_dns}"
+  bucket_name = "swen-514-stock-predictor-app-${random_id.suffix.hex}"
+  build_dir   = "./frontend"
+}
+
 resource "random_id" "suffix" {
   byte_length = 4
 }
@@ -59,7 +66,8 @@ module "ec2" {
   db_name            = var.db_name
   key_name           = var.key_name
   ec2_sg_id          = module.security.ec2_sg_id
-  app_url            = "https://${aws_eip.ec2_eip.public_dns}"
+  api_url            = "https://${aws_eip.ec2_eip.public_dns}"
+  app_url            = module.s3.website_url
   auth_issuer        = module.cognito.issuer
   auth_client_id     = module.cognito.client_id
   auth_client_secret = module.cognito.client_secret

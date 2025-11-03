@@ -20,7 +20,7 @@ const USER_API_ROUTE = '/api/users';
 const AUTH_API_ROUTE = '/api/auth';
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5000',
+    origin: process.env.APP_URL || 'http://localhost:5000',
 }));
 app.use(express.json());
 app.use(cookieParser());

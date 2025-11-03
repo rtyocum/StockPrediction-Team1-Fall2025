@@ -1,9 +1,9 @@
-import type { User } from "../../../src/db/schema";
+// import type { User } from "../../../src/db/schema";
 
-type AnalyticsProps = {
-  user: User | null;
-};
+// type AnalyticsProps = {
+//   user: User | null;
+// };
 
-export default function Analytics(user: AnalyticsProps) {
+export default function Analytics(/*user: AnalyticsProps*/) {
   return <div>Analytics, display charts/ graphs here?</div>;
 }

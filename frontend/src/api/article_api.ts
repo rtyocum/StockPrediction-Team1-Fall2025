@@ -1,20 +1,20 @@
 import type { NewsArticle } from "../../../src/db/schema";
 
 const BACKEND_URL = `${import.meta.env.VITE_BACKEND_URL}`;
-const TICKER_API_ROUTE = '/api/tickers';
+// const TICKER_API_ROUTE = '/api/tickers';
 const ARTICLE_API_ROUTE = '/api/articles';
-const USER_API_ROUTE = '/api/users';
-const AUTH_API_ROUTE = '/api/auth';
+// const USER_API_ROUTE = '/api/users';
+// const AUTH_API_ROUTE = '/api/auth';
 
 export interface ArticleTickers {
-  tickerId: number;
-  symbol: string;
-  tickerSentimentScore: string | null;
-  tickerSentimentLabel: string | null;
-  relevanceScore: string | null;
+    tickerId: number;
+    symbol: string;
+    tickerSentimentScore: string | null;
+    tickerSentimentLabel: string | null;
+    relevanceScore: string | null;
 }
 export interface NewsArticleTickers extends NewsArticle {
-  tickers: ArticleTickers[];
+    tickers: ArticleTickers[];
 }
 
 export async function getNewsArticles(): Promise<NewsArticleTickers[]> {
@@ -30,7 +30,7 @@ export async function getNewsArticles(): Promise<NewsArticleTickers[]> {
         }
 
         const data = await response.json();
-        console.log(`getnewsarticle`,data);
+        console.log(`getnewsarticle`, data);
         return data;
 
     } catch (error) {
