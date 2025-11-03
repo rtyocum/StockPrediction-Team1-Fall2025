@@ -1,10 +1,8 @@
 import type { User } from "../../../src/db/schema";
 
-const BACKEND_URL = (window as Window & typeof globalThis & { BACKEND_URL: string }).BACKEND_URL
-
 export async function checkSession(): Promise<User | null> {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/auth/session`, {
+        const res = await fetch(`/api/auth/session`, {
             credentials: "include",
         });
         console.log('res data: ', res)
@@ -23,7 +21,7 @@ export async function checkSession(): Promise<User | null> {
 }
 
 export async function logout(): Promise<void> {
-    await fetch(`${BACKEND_URL}/api/auth/logout`, {
+    await fetch(`/api/auth/logout`, {
         credentials: "include",
         method: "POST"
     });

@@ -1,7 +1,5 @@
 import type { NewsArticle } from "../../../src/db/schema";
 
-const BACKEND_URL = (window as Window & typeof globalThis & { BACKEND_URL: string }).BACKEND_URL
-
 // const TICKER_API_ROUTE = '/api/tickers';
 const ARTICLE_API_ROUTE = '/api/articles';
 // const USER_API_ROUTE = '/api/users';
@@ -20,7 +18,7 @@ export interface NewsArticleTickers extends NewsArticle {
 
 export async function getNewsArticles(): Promise<NewsArticleTickers[]> {
     try {
-        const response = await fetch(`${BACKEND_URL}${ARTICLE_API_ROUTE}/`, {
+        const response = await fetch(`${ARTICLE_API_ROUTE}/`, {
             credentials: "include",
         });
 

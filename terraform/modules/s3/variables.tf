@@ -8,11 +8,6 @@ variable "build_dir" {
   description = "Path to local directory containing the frontend source (with package.json)"
 }
 
-variable "api_url" {
-  type        = string
-  description = "Backend API URL to inject into frontend config"
-}
-
 variable "region" {
   type        = string
   description = "AWS region"

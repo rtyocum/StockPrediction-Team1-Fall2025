@@ -67,12 +67,3 @@ resource "aws_s3_object" "site_files" {
   }, split(".", each.value)[length(split(".", each.value)) - 1], "application/octet-stream")
 
 }
-
-resource "aws_s3_object" "config_js" {
-  bucket = aws_s3_bucket.frontend.id
-  key    = "config.js"
-  content = templatefile("${path.root}/config.js.tpl", {
-    api_url = var.api_url
-  })
-  content_type = "application/javascript"
-}
