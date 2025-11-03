@@ -417,6 +417,7 @@ export async function getAllArticlesWithTickerSentiments(tickerSymbol?: string |
         const ticker = await getTickerBySymbol(tickerSymbol);
 
         if (ticker === null) {
+            console.log(`returns empty array before anything.... getalarticleswihttickersentiments`)
             return [];
         }
 

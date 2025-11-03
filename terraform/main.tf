@@ -38,6 +38,84 @@ resource "aws_eip" "ec2_eip" {
   domain = "vpc"
 }
 
+// cloudfront with aws_eip on /api and s3 on /
+resource "aws_cloudfront_distribution" "cdn" {
+  origin {
+    domain_name = aws_eip.ec2_eip.public_dns
+    origin_id   = "ec2-origin"
+
+    custom_origin_config {
+      http_port              = 5000
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+
+  origin {
+    domain_name = module.s3.website_url
+    origin_id   = "s3-origin"
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+
+  default_cache_behavior {
+    target_origin_id       = "s3-origin"
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+  }
+
+  ordered_cache_behavior {
+    path_pattern           = "/api/*"
+    target_origin_id       = "ec2-origin"
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods        = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods         = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = true
+      headers      = ["Host", "Origin", "Authorization", "Content-Type", "X-Forwarded-Proto", "X-Forwarded-Host"]
+      cookies {
+        forward = "all"
+      }
+    }
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  comment             = "CDN for Stock Predictor App"
+  default_root_object = "index.html"
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+}
+
+module "s3" {
+  source      = "./modules/s3"
+  bucket_name = "swen-514-stock-predictor-app-${random_id.suffix.hex}"
+  build_dir   = "${path.root}/../frontend"
+}
+
 resource "random_id" "suffix" {
   byte_length = 4
 }
@@ -45,7 +123,7 @@ resource "random_id" "suffix" {
 module "cognito" {
   source                = "./modules/cognito"
   cognito_domain_prefix = "swen-514-stock-predictor-app-${random_id.suffix.hex}"
-  redirect_base_url     = "https://${aws_eip.ec2_eip.public_dns}"
+  redirect_base_url     = "https://${aws_cloudfront_distribution.cdn.domain_name}"
 }
 
 
@@ -59,12 +137,11 @@ module "ec2" {
   db_name            = var.db_name
   key_name           = var.key_name
   ec2_sg_id          = module.security.ec2_sg_id
-  app_url            = "https://${aws_eip.ec2_eip.public_dns}"
+  app_url            = "https://${aws_cloudfront_distribution.cdn.domain_name}"
   auth_issuer        = module.cognito.issuer
   auth_client_id     = module.cognito.client_id
   auth_client_secret = module.cognito.client_secret
   repo_url           = var.repo_url
-  public_dns         = aws_eip.ec2_eip.public_dns
 }
 
 resource "aws_eip_association" "ec2_eip_assoc" {
@@ -75,8 +152,9 @@ resource "aws_eip_association" "ec2_eip_assoc" {
 
 # Outputs
 # Outputs the public IP of the EC2 instance and the RDS endpoint.
-output "api_url" {
-  value = "http://${aws_eip.ec2_eip.public_dns}"
+
+output "app_url" {
+  value = "https://${aws_cloudfront_distribution.cdn.domain_name}"
 }
 
 
