@@ -19,4 +19,5 @@ npm run build
 # Terraform
 cd "$CURRENT_DIR"/terraform
 terraform init
-terraform apply -auto-approve
+aws configure
+terraform apply -auto-approve -var-file=secrets.tfvars
