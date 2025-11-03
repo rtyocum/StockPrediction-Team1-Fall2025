@@ -16,7 +16,7 @@ yum install -y git curl-minimal
 curl -fsSL https://rpm.nodesource.com/setup_22.x | sudo bash -
 sudo yum install -y nodejs
 mkdir -p /opt/api
-git clone -b frontend ${repo_url} /opt/api
+git clone ${repo_url} /opt/api
 cd /opt/api
 npm install
 npm run build
