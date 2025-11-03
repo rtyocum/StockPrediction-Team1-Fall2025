@@ -1,4 +1,4 @@
-import type { User } from "../../../src/db/schema";
+import type { User } from "../../../api/src/db/schema";
 import {
   Button,
   Flex,

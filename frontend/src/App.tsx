@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { checkSession, logout } from "./api/auth_api";
-import type { User } from "../../src/db/schema";
+import type { User } from "../../api/src/db/schema";
 import PrivateRoutes from "./components/PrivateRoutes";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";

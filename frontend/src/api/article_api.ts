@@ -1,4 +1,4 @@
-import type { NewsArticle } from "../../../src/db/schema";
+import type { NewsArticle } from "../../../api/src/db/schema";
 
 // const TICKER_API_ROUTE = '/api/tickers';
 const ARTICLE_API_ROUTE = '/api/articles';

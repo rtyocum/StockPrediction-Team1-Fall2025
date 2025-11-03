@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import type { User } from "../../../src/db/schema";
+import type { User } from "../../../api/src/db/schema";
 
 type PrivateRoutesProps = {
   user: User | null;

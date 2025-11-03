@@ -1,5 +1,5 @@
 import { Spinner, Text, VStack } from "@chakra-ui/react";
-import type { User } from "../../../src/db/schema";
+import type { User } from "../../../api/src/db/schema";
 // import React from "react";
 
 type WatchlistProps = {
