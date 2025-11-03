@@ -24,8 +24,26 @@ resource "aws_s3_bucket_public_access_block" "frontend" {
   restrict_public_buckets = false
 }
 
-# --- Public read policy (read-only objects) ---
+resource "aws_s3_bucket_ownership_controls" "frontend" {
+  bucket = aws_s3_bucket.frontend.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "frontend" {
+  depends_on = [
+    aws_s3_bucket_public_access_block.frontend,
+    aws_s3_bucket_ownership_controls.frontend,
+  ]
+
+  bucket = aws_s3_bucket.frontend.id
+  acl    = "public-read"
+}
+
 resource "aws_s3_bucket_policy" "public_read" {
+  depends_on = [aws_s3_bucket_acl.frontend]
+
   bucket = aws_s3_bucket.frontend.id
 
   policy = jsonencode({
@@ -41,8 +59,8 @@ resource "aws_s3_bucket_policy" "public_read" {
     ]
   })
 
-  depends_on = [aws_s3_bucket_public_access_block.frontend]
 }
+
 
 
 # --- Upload build artifacts ---
