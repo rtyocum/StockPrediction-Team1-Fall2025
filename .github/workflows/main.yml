@@ -51,9 +51,9 @@ jobs:
         with:
           terraform_version: 1.1.9 # Specifies Terraform version to use
           terraform_wrapper: false
-
+      
       - name: Change into terraform dir for remaining steps
-      - run: cd terraform
+        run: cd terraform
       
       # Step 4: Initialize Terraform working directory
       - name: Terraform Init
@@ -104,7 +104,7 @@ jobs:
       
       # cd into terraform dir
       - name: Change into terraform dir for remaining steps
-      - run: cd terraform   
+        run: cd terraform   
       
       # Step 4: Initialize Terraform working directory
       - name: Terraform Init
